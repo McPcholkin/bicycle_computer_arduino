@@ -30,7 +30,7 @@
 
 
 // --- set variables start ---
-const float fwVersion = 0.02;               // Firmware version
+const float fwVersion = 0.03;               // Firmware version
 const int wheelDiameterIn = 26;             // Wheel diameter in inches
 const int cadPin = 2;                       // Set cadence sensor pin
 const int spdPin = 3;                       // Set speed sensor pin
@@ -220,17 +220,24 @@ unsigned long spdDebounceDelay = 120;       // the debounce time; increase if th
 #else
   void update_lcd() {
     display.clearDisplay();
-    display.setTextSize(2);
+    
     display.setTextColor(BLACK);
 
-    // Cadence
+    display.setTextSize(1);
     display.setCursor(0,0);
+    display.print("Cadence  Speed");
+    
+    // Cadence
+    display.setTextSize(2);
+    display.setCursor(0,8);
     display.print(cadRPM);
 
     // Speed
-    display.setCursor(0,15);
+    display.setCursor(0,25);
+    display.print("S:");
+    display.setCursor(45,25);
     display.print(spdRPM);
-    display.setCursor(50,15);
+    display.setCursor(50,8);
     display.print(spdKmPh);
   
     display.display(); 
