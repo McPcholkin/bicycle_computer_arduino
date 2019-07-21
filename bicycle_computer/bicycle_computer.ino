@@ -10,6 +10,7 @@
 
 // --- set debug start ---
 //#define DEBUG_SERIAL
+//#define DEBUG_SPEED
 // --- set debug end ---
 
 #ifndef DEBUG_SERIAL
@@ -183,35 +184,38 @@ unsigned long spdDebounceDelay = 120;       // the debounce time; increase if th
 // --- update lcd and serial start ---
 #ifdef DEBUG_SERIAL
   void update_serial() {
-    // Cadence
-    Serial.print("CadCnt: ");
-    Serial.print(cadPulseCounter);
-    Serial.print("\tCadPer: ");
-    Serial.print(cadPeriodBetweenPulses);
-    Serial.print("\tCadPerAvg: ");
-    Serial.print(cadPeriodAverage);
-    Serial.print("\tCadFreq: ");
-    Serial.print(cadFrequencyReal);
-    Serial.print("\tCadRPM: ");
-    Serial.print(cadRPM);
-    Serial.print("\tCadTacho: ");
-    Serial.print(cadRPMAverage);
 
-    // Speed
-    Serial.print("\tSpdCnt: ");
-    Serial.print(spdPulseCounter);
-    Serial.print("\tSpdPeriod: ");
-    Serial.print(spdPeriodBetweenPulses);
-    Serial.print("\tSpdPeriodAWG: ");
-    Serial.print(spdPeriodAverage);
-    Serial.print("\tSpdFreq: ");
-    Serial.print(spdFrequencyReal);
-    Serial.print("\tSpdRPM: ");
-    Serial.print(spdRPM);
-    Serial.print("\tSpdTacho: ");
-    Serial.print(spdRPMAverage);
-    Serial.print("\tSpdKmPh: ");
-    Serial.println(spdKmPh);
+    #ifdef DEBUG_SPEED
+      // Speed
+      Serial.print("SpdCnt: ");
+      Serial.print(spdPulseCounter);
+      Serial.print("\tSpdPeriod: ");
+      Serial.print(spdPeriodBetweenPulses);
+      Serial.print("\tSpdPeriodAWG: ");
+      Serial.print(spdPeriodAverage);
+      Serial.print("\tSpdFreq: ");
+      Serial.print(spdFrequencyReal);
+      Serial.print("\tSpdRPM: ");
+      Serial.print(spdRPM);
+      Serial.print("\tSpdTacho: ");
+      Serial.print(spdRPMAverage);
+      Serial.print("\tSpdKmPh: ");
+      Serial.println(spdKmPh);
+    #else
+      // Cadence
+      Serial.print("CadCnt: ");
+      Serial.print(cadPulseCounter);
+      Serial.print("\tCadPer: ");
+      Serial.print(cadPeriodBetweenPulses);
+      Serial.print("\tCadPerAvg: ");
+      Serial.print(cadPeriodAverage);
+      Serial.print("\tCadFreq: ");
+      Serial.print(cadFrequencyReal);
+      Serial.print("\tCadRPM: ");
+      Serial.print(cadRPM);
+      Serial.print("\tCadTacho: ");
+      Serial.print(cadRPMAverage);
+    #endif
   }
 #else
   void update_lcd() {
@@ -226,7 +230,8 @@ unsigned long spdDebounceDelay = 120;       // the debounce time; increase if th
     // Speed
     display.setCursor(0,15);
     display.print(spdRPM);
-    //display.print(spdKmPh);
+    display.setCursor(50,15);
+    display.print(spdKmPh);
   
     display.display(); 
   }
